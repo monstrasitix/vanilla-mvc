@@ -1,21 +1,32 @@
-const newCounter = () => {
-    let count = 0;
+const setText = <T extends {}> (el: HTMLElement, value: T) => {
+    el.textContent = String(value);
+}
 
-    const output = document.getElementById('output') as HTMLElement;
-    const increment = document.getElementById('increment') as HTMLButtonElement;
-    const decrement = document.getElementById('decrement') as HTMLButtonElement;
+export const counterState = () => ({
+    count: 0,
+});
+
+export const getElements = () => ({
+    output: document.getElementById('output') as HTMLElement,
+    increment: document.getElementById('increment') as HTMLButtonElement,
+    decrement: document.getElementById('decrement') as HTMLButtonElement,
+});
+
+export const newCounter = () => {
+    const state = counterState();
+    const { decrement, increment, output } = getElements();
 
     const updateText = () => {
-        output.textContent = String(count);
+        setText(output, state.count);
     };
 
     const handleIncrement = () => {
-        count++;
+        state.count++;
         updateText();
     };
 
     const handleDecrement = () => {
-        count--;
+        state.count--;
         updateText();
     };
 
